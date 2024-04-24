@@ -37,15 +37,14 @@ function fetchProtectedData() {
     });
 }
 
-
-document.addEventListener('DOMContentLoaded', function() {
-    fetchAllUsers();  // Kalla på denna när sidan laddas
-});
-
-
 function logout() {
     localStorage.removeItem('token'); // Rensa token
     window.location.href = 'index.html'; // Omdirigera till inloggningssidan
 }
+
+// testar slå samman
+
+
+
 
 document.getElementById('logoutButton').addEventListener('click', logout);
