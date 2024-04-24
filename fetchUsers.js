@@ -6,7 +6,7 @@ function fetchUsers() {
     const token = localStorage.getItem('token');
     if (!token) {
         console.log('No token found, redirecting to login.');
-        window.location.href = 'login.html';
+        window.location.href = 'index.html';
         return;
     }
 
@@ -17,11 +17,12 @@ function fetchUsers() {
     })
     .then(response => {
         if (!response.ok) {
-            throw new Error('Failed to fetch users.');
+            throw new Error(`Failed to fetch users. Status: ${response.status}`);
         }
         return response.json();
     })
     .then(users => {
+        console.log('Users fetched:', users); // Logga de hämtade användarna
         displayUsers(users);
     })
     .catch(error => {
