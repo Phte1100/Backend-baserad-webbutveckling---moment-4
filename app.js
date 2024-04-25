@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
-
+// Funktion för att logga in
 function loginUser(username, password) {
     fetch('http://localhost:3001/api/login', {
         method: 'POST',
@@ -30,21 +30,28 @@ function loginUser(username, password) {
         },
         body: JSON.stringify({ username, password })
     })
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Inloggningen misslyckades. Status: ' + response.status);
+        }
+        return response.json();
+    })
     .then(data => {
         if (data.token) {
             localStorage.setItem('token', data.token);
-            window.location.href = 'list.html'; // Anpassa till rätt sida
+            window.location.href = 'list.html';
         } else {
-            throw new Error(data.error || 'Inloggningen misslyckades');
+            throw new Error('Inget token mottaget');
         }
     })
     .catch(error => {
         console.error('Fel vid inloggning:', error.message);
-        alert('Fel vid inloggning: ' + error.message);
+        const Feedback = document.getElementById('Feedback');
+        Feedback.textContent = 'Fel användarnamn/lösenord! Prova igen!';
     });
 }
 
+// Funktion för att registrera ny användare
 function registerUser(username, password) {
     fetch('http://localhost:3001/api/register', {
         method: 'POST',
@@ -55,11 +62,15 @@ function registerUser(username, password) {
     })
     .then(response => response.json())
     .then(data => {
-        alert('Registreringen lyckades! Vänligen logga in.');
-        window.location.href = 'index.html'; // Omdirigera till inloggningssidan
+        const Feedback = document.getElementById('Feedback');
+        Feedback.textContent = 'Registreringen lyckades! Vänligen logga in.';
+        setTimeout(() => {
+            window.location.href = 'index.html'; // Omdirigera till inloggningssidan
+        }, 1000); // Vänta en sekund innan omdirigering
     })
     .catch(error => {
         console.error('Fel vid registrering:', error.message);
-        alert('Fel vid registrering: ' + error.message);
+        const Feedback = document.getElementById('Feedback');
+        Feedback.textContent = 'Fel vid registrering: ' + error.message;
     });
 }

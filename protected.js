@@ -10,6 +10,14 @@ function checkAuthentication() {
     }
 }
 
+function sanitizeData(data) {
+    return data.map(item => ({
+        ...item,
+        username: item.username.replace(/(<([^>]+)>)/ig, ''), // Enkel sanering för att ta bort HTML-taggar
+        password: item.password.replace(/(<([^>]+)>)/ig, '')
+    }));
+}
+
 function fetchProtectedData() {
     const token = localStorage.getItem('token');
     fetch('http://localhost:3001/api/protected', {
@@ -30,7 +38,8 @@ function fetchProtectedData() {
         return response.json();
     })
     .then(data => {
-        console.log('Skyddad data mottagen:', data); // Hantera mottagen data
+        const sanitizedData = sanitizeData(data);
+        console.log('Skyddad och sanerad data mottagen:', sanitizedData);
     })
     .catch(error => {
         console.error('Error:', error);
@@ -39,12 +48,11 @@ function fetchProtectedData() {
 
 function logout() {
     localStorage.removeItem('token'); // Rensa token
-    window.location.href = 'index.html'; // Omdirigera till inloggningssidan
+    const Feedback = document.getElementById('Feedback');
+    Feedback.textContent = 'Du har loggats ut.';
+    setTimeout(() => {
+        window.location.href = 'index.html'; // Omdirigera till inloggningssidan
+    }, 2000); // Vänta två sekunder innan omdirigering
 }
-
-// testar slå samman
-
-
-
 
 document.getElementById('logoutButton').addEventListener('click', logout);

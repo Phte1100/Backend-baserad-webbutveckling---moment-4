@@ -62,7 +62,6 @@ ul, .list {
     list-style: none;
     padding: 0%;
     font-family: "Open Sans", sans-serif;
-    text-transform: uppercase;
     letter-spacing: 2px;
 }
 
@@ -116,12 +115,13 @@ input:focus {
     outline: none;
 }
 
-p, #start, a {
+p, #start, a, #Feedback {
     font-family: "Open Sans", sans-serif;
     font-size: 16px;
 }
 
-#start {
+#start, #Feedback {
+    margin-top: 3%;
     text-align: center;
 }
 
@@ -130,7 +130,6 @@ p, #start, a {
     font-size: 16px;
     letter-spacing: 2px;
     text-decoration: none;
-    text-transform: uppercase;
     color: #000;
     cursor: pointer;
     border: 3px solid;
@@ -141,6 +140,10 @@ p, #start, a {
     touch-action: manipulation;
     margin-right: 2%;
     margin-top: 3%;
+}
+
+#uppdate, #loginbutton, #createbutton, select, #logoutButton, #description {
+    text-transform: uppercase;
 }
 
 label {
