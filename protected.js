@@ -11,6 +11,9 @@ function checkAuthentication() {
 }
 
 function sanitizeData(data) {
+    if (!Array.isArray(data)) {
+        data = [data]; 
+    }
     return data.map(item => ({
         ...item,
         username: item.username.replace(/(<([^>]+)>)/ig, ''), // Enkel sanering för att ta bort HTML-taggar
@@ -20,7 +23,7 @@ function sanitizeData(data) {
 
 function fetchProtectedData() {
     const token = localStorage.getItem('token');
-    fetch('http://localhost:3001/api/protected', {
+    fetch('https://auth-app-io0c.onrender.com/api/protected', {
     headers: {
         'Authorization': `Bearer ${token}`
     }

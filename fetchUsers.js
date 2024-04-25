@@ -10,7 +10,7 @@ function fetchUsers() {
         return;
     }
 
-    fetch('http://localhost:3001/api/users', {
+    fetch('https://auth-app-io0c.onrender.com/api/users', {
         headers: {
             'Authorization': `Bearer ${token}`
         }

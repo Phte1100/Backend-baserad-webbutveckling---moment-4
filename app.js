@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 // Funktion för att logga in
 function loginUser(username, password) {
-    fetch('http://localhost:3001/api/login', {
+    fetch('https://auth-app-io0c.onrender.com/api/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -53,7 +53,7 @@ function loginUser(username, password) {
 
 // Funktion för att registrera ny användare
 function registerUser(username, password) {
-    fetch('http://localhost:3001/api/register', {
+    fetch('https://auth-app-io0c.onrender.com/api/register', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
