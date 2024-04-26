@@ -30,9 +30,7 @@ function fetchProtectedData() {
         return response.json();
     })
     .then(data => {
-        console.log('Mottagen data innan sanering:', JSON.stringify(data, null, 2));
         const sanitizedData = sanitizeData(data);
-        console.log('Skyddad och sanerad data mottagen:', sanitizedData);
     })
     .catch(error => {
         console.error('Error:', error);

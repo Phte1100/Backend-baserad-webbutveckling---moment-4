@@ -22,7 +22,6 @@ function fetchUsers() {
         return response.json();
     })
     .then(users => {
-        console.log('Users fetched:', users); // Logga de hämtade användarna
         displayUsers(users);
     })
     .catch(error => {
