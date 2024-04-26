@@ -6,7 +6,7 @@
   "version": "1.0.0",
   "scripts": {
     "start": "parcel src/index.html --open",
-    "build": "parcel build src/index.html src/register.html src/list.html --public-url ./"
+    "build": "parcel build index.html register.html list.html --public-url ./"
   },
   "keywords": [],
   "author": "",
