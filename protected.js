@@ -10,23 +10,12 @@ function checkAuthentication() {
     }
 }
 
-function sanitizeData(data) {
-    if (!Array.isArray(data)) {
-        data = [data]; 
-    }
-    return data.map(item => ({
-        ...item,
-        username: item.username.replace(/(<([^>]+)>)/ig, ''), // Enkel sanering för att ta bort HTML-taggar
-        password: item.password.replace(/(<([^>]+)>)/ig, '')
-    }));
-}
-
 function fetchProtectedData() {
     const token = localStorage.getItem('token');
     fetch('https://auth-app-io0c.onrender.com/api/protected', {
-    headers: {
-        'Authorization': `Bearer ${token}`
-    }
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
     })
     .then(response => {
         if (!response.ok) {
@@ -41,12 +30,26 @@ function fetchProtectedData() {
         return response.json();
     })
     .then(data => {
+        console.log('Mottagen data innan sanering:', JSON.stringify(data, null, 2));
         const sanitizedData = sanitizeData(data);
         console.log('Skyddad och sanerad data mottagen:', sanitizedData);
     })
     .catch(error => {
         console.error('Error:', error);
+        const Feedback = document.getElementById('Feedback');
+        Feedback.textContent = 'Ett fel inträffade vid hämtning av data. Vänligen försök igen.';
     });
+}
+
+function sanitizeData(data) {
+    if (!Array.isArray(data)) {
+        data = [data]; 
+    }
+    return data.map(item => ({
+        ...item,
+        username: item.username ? item.username.replace(/(<([^>]+)>)/ig, '') : '',  // Sanera användarnamnet
+        password: item.password ? item.password.replace(/(<([^>]+)>)/ig, '') : ''
+    }));
 }
 
 function logout() {
@@ -55,7 +58,7 @@ function logout() {
     Feedback.textContent = 'Du har loggats ut.';
     setTimeout(() => {
         window.location.href = 'index.html'; // Omdirigera till inloggningssidan
-    }, 2000); // Vänta två sekunder innan omdirigering
+    }, 1000); // Vänta en sekund innan omdirigering
 }
 
 document.getElementById('logoutButton').addEventListener('click', logout);
