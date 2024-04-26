@@ -4,8 +4,10 @@
   },
   "name": "backend-baserad-webbutveckling---moment-4",
   "version": "1.0.0",
-  "main": "index.js",
-  "devDependencies": {},
+  "scripts": {
+    "start": "parcel src/index.html --open",
+    "build": "parcel build src/index.html src/register.html src/list.html --public-url ./"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
